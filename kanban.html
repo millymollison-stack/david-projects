@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>David & Milly - Task Board</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        h1 span {
+            color: #e94560;
+        }
+        
+        .board {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+        }
+        
+        .column {
+            background: #16213e;
+            border-radius: 12px;
+            min-width: 300px;
+            max-width: 300px;
+            padding: 20px;
+        }
+        
+        .column h2 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .column.todo h2 { border-color: #e94560; }
+        .column.inprogress h2 { border-color: #f39c12; }
+        .column.done h2 { border-color: #27ae60; }
+        
+        .task {
+            background: #0f3460;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            color: #fff;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .task:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .task.category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+        
+        .task.security { border-left: 3px solid #e94560; }
+        .task.memory { border-left: 3px solid #3498db; }
+        .task.prompt { border-left: 3px solid #9b59b6; }
+        .task.skills { border-left: 3px solid #f39c12; }
+        .task.jobs { border-left: 3px solid #e74c3c; }
+        .task.personality { border-left: 3px solid #1abc9c; }
+        
+        .checkbox {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #fff;
+            border-radius: 3px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        .task.done .checkbox {
+            background: #27ae60;
+            border-color: #27ae60;
+        }
+        
+        .task.done .task-title {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+        
+        .add-task {
+            background: #0f3460;
+            border: 2px dashed #444;
+            border-radius: 8px;
+            padding: 12px;
+            color: #888;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .add-task:hover {
+            border-color: #666;
+            color: #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .board {
+                flex-direction: column;
+            }
+            .column {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>David & <span>Milly</span> Task Board</h1>
+    
+    <div class="board">
+        <div class="column todo">
+            <h2>📋 To Do</h2>
+            
+            <div class="task category">Security</div>
+            <div class="task security done"><span class="checkbox"></span><span class="task-title">Change port 18789 to something else (→19891)</span></div>
+            <div class="task security done"><span class="checkbox"></span><span class="task-title">Review and set API limits (handled by provider)</span></div>
+            <div class="task security done"><span class="checkbox"></span><span class="task-title">Prompt injection protection (handled by model)</span></div>
+            <div class="task security done"><span class="checkbox"></span><span class="task-title">Limit input devices: Computer paired ✓ (need to pair phone)</span></div>
+            <div class="task security done"><span class="checkbox"></span><span class="task-title">Hide passwords/keys (use env vars in external builds)</span></div>
+            
+            <div class="task category">Prompt Caching</div>
+            <div class="task prompt done"><span class="checkbox"></span><span class="task-title">Group prompts into 5-min windows (behavioral)</span></div>
+            
+            <div class="task category">Skills</div>
+            <div class="task skills done"><span class="checkbox"></span><span class="task-title">Set up Proactive Agent (incorporated into SOUL)</span></div>
+            <div class="task skills done"><span class="checkbox"></span><span class="task-title">Set up Self-Improving Agent (incorporated into SOUL)</span></div>
+            <div class="task skills done"><span class="checkbox"></span><span class="task-title">Configure Browser Use Agent (✓ working)</span></div>
+            <div class="task skills done"><span class="checkbox"></span><span class="task-title">Configure Agent Browser (✓ working)</span></div>
+            <div class="task skills done"><span class="checkbox"></span><span class="task-title">Configure Messenger Agent (✓ working)</span></div>
+            
+            <div class="task category">Personality</div>
+            <div class="task personality done"><span class="checkbox"></span><span class="task-title">Craft personality text for soul files</span></div>
+            
+            <div class="task category">Job Applications</div>
+            <div class="task jobs"><span class="checkbox"></span><span class="task-title">1. Growth Lead @ Forager.ai (LA)</span></div>
+            <div class="task jobs"><span class="checkbox"></span><span class="task-title">2. Senior Amazon Brand Manager @ GNO Partners</span></div>
+            <div class="task jobs"><span class="checkbox"></span><span class="task-title">3. Growth Marketing Manager @ Relay Commerce</span></div>
+            <div class="task jobs"><span class="checkbox"></span><span class="task-title">4. Growth Marketing Director @ Wood Mackenzie</span></div>
+            <div class="task jobs"><span class="checkbox"></span><span class="task-title">5. Marketing Strategy Advisor @ NewtonX</span></div>
+            <div class="task jobs"><span class="checkbox"></span><span class="task-title">6. Paid Ads Strategist @ Tier3 Media</span></div>
+            <div class="task jobs"><span class="checkbox"></span><span class="task-title">7. Head of Marketing @ Tandm Systems</span></div>
+            <div class="task jobs"><span class="checkbox"></span><span class="task-title">8. Growth Marketing Associate @ Blank Canvas</span></div>
+            <div class="task jobs"><span class="checkbox"></span><span class="task-title">9. VP Field Marketing @ AutoStore</span></div>
+            <div class="task jobs"><span class="checkbox"></span><span class="task-title">10. Content Marketer @ Animalz</span></div>
+        </div>
+        
+        <div class="column inprogress">
+            <h2>🔄 In Progress</h2>
+            <div class="add-task">+ Click to add task</div>
+        </div>
+        
+        <div class="column done">
+            <h2>✅ Done</h2>
+            
+            <div class="task memory done"><span class="checkbox"></span><span class="task-title">Memory directory exists</span></div>
+            <div class="task memory done"><span class="checkbox"></span><span class="task-title">Workspace memory folder created</span></div>
+            <div class="task memory done"><span class="checkbox"></span><span class="task-title">Memory maintenance added to heartbeat</span></div>
+            <div class="task done"><span class="checkbox"></span><span class="task-title">Created TASKBOARD.md</span></div>
+            <div class="task done"><span class="checkbox"></span><span class="task-title">Kanban board built</span></div>
+            <div class="task done"><span class="checkbox"></span><span class="task-title">Updated resume with AI skills</span></div>
+            <div class="task done"><span class="checkbox"></span><span class="task-title">Found 10 jobs to apply for</span></div>
+            <div class="task done"><span class="checkbox"></span><span class="task-title">Port 18789 → 19891 (permanent)</span></div>
+            <div class="task done"><span class="checkbox"></span><span class="task-title">Gateway installed as LaunchAgent</span></div>
+            <div class="task done"><span class="checkbox"></span><span class="task-title">Config file secured (chmod 600)</span></div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple toggle functionality
+        document.querySelectorAll('.task').forEach(task => {
+            task.addEventListener('click', () => {
+                task.classList.toggle('done');
+            });
+        });
+    </script>
+</body>
+</html>
