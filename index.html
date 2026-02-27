@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>David's Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d9ff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #8892b0;
+            margin-bottom: 30px;
+        }
+        
+        .tagline {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #00d9ff;
+        }
+        
+        .about {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .about h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #00d9ff;
+        }
+        
+        .about p {
+            line-height: 1.8;
+            color: #b0b8c8;
+            font-size: 1.1rem;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+        
+        .skill {
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #d8b4fe;
+        }
+        
+        .links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .link-primary {
+            background: linear-gradient(90deg, #00d9ff, #a855f7);
+            color: #fff;
+        }
+        
+        .link-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+        
+        .link-secondary {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+        
+        .link-secondary:hover {
+            border-color: #00d9ff;
+            color: #00d9ff;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            color: #5a6178;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>David Mollison</h1>
+            <p class="subtitle">Creative Director & Marketing Strategist</p>
+            <span class="tagline">Building brands that matter</span>
+        </header>
+        
+        <section class="about">
+            <h2>About Me</h2>
+            <p>
+                I'm a creative marketing professional with 20+ years of experience in advertising and brand strategy. 
+                Based in Los Angeles, I specialize in growth marketing, campaign development, and building effective sales funnels. 
+                Currently exploring AI-powered marketing solutions and looking for my next challenge.
+            </p>
+            <div class="skills">
+                <span class="skill">Brand Strategy</span>
+                <span class="skill">Growth Marketing</span>
+                <span class="skill">Meta Ads</span>
+                <span class="skill">Web Development</span>
+                <span class="skill">Logo Design</span>
+                <span class="skill">Campaigns</span>
+                <span class="skill">Sales Funnels</span>
+            </div>
+        </section>
+        
+        <div class="links">
+            <a href="https://github.com/millymollison-stack" class="link link-primary">GitHub</a>
+            <a href="https://millymollison-stack.github.io/david-projects/kanban.html" class="link link-secondary">Task Board</a>
+        </div>
+        
+        <footer>
+            <p>© 2026 David Mollison. Built with passion.</p>
+        </footer>
+    </div>
+</body>
+</html>
