@@ -34,6 +34,7 @@
             gap: 20px;
             overflow-x: auto;
             padding-bottom: 20px;
+            min-height: 500px;
         }
         
         .column {
@@ -58,6 +59,7 @@
         .column.todo h2 { border-color: #e94560; }
         .column.inprogress h2 { border-color: #f39c12; }
         .column.done h2 { border-color: #27ae60; }
+        .column.archived h2 { border-color: #7f8c8d; }
         
         .task {
             background: #0f3460;
@@ -66,8 +68,18 @@
             margin-bottom: 10px;
             color: #fff;
             font-size: 0.9rem;
-            cursor: pointer;
+            cursor: grab;
             transition: transform 0.2s, box-shadow 0.2s;
+            user-select: none;
+        }
+        
+        .task:active {
+            cursor: grabbing;
+        }
+        
+        .task.dragging {
+            opacity: 0.5;
+            transform: rotate(3deg);
         }
         
         .task:hover {
@@ -81,14 +93,21 @@
             letter-spacing: 1px;
             opacity: 0.7;
             margin-bottom: 5px;
+            cursor: default;
+        }
+        
+        .task.category:hover {
+            transform: none;
+            box-shadow: none;
         }
         
         .task.security { border-left: 3px solid #e94560; }
         .task.memory { border-left: 3px solid #3498db; }
         .task.prompt { border-left: 3px solid #9b59b6; }
         .task.skills { border-left: 3px solid #f39c12; }
-        .task.jobs { border-left: 3px solid #e74c3c; }
         .task.personality { border-left: 3px solid #1abc9c; }
+        .task.jobs { border-left: 3px solid #e74c3c; }
+        .task.project { border-left: 3px solid #00cec9; }
         
         .checkbox {
             display: inline-block;
@@ -126,6 +145,19 @@
             color: #fff;
         }
         
+        .project-number {
+            font-weight: bold;
+            color: #00cec9;
+            margin-right: 5px;
+        }
+        
+        .project-subtitle {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
         @media (max-width: 768px) {
             .board {
                 flex-direction: column;
@@ -143,37 +175,30 @@
         <div class="column todo">
             <h2>📋 To Do</h2>
             
-            <div class="task category">Security</div>
-            <div class="task security done"><span class="checkbox"></span><span class="task-title">Change port 18789 to something else (→19891)</span></div>
-            <div class="task security done"><span class="checkbox"></span><span class="task-title">Review and set API limits (handled by provider)</span></div>
-            <div class="task security done"><span class="checkbox"></span><span class="task-title">Prompt injection protection (handled by model)</span></div>
-            <div class="task security done"><span class="checkbox"></span><span class="task-title">Limit input devices: Computer paired ✓ (need to pair phone)</span></div>
-            <div class="task security done"><span class="checkbox"></span><span class="task-title">Hide passwords/keys (use env vars in external builds)</span></div>
-            
-            <div class="task category">Prompt Caching</div>
-            <div class="task prompt done"><span class="checkbox"></span><span class="task-title">Group prompts into 5-min windows (behavioral)</span></div>
-            
-            <div class="task category">Skills</div>
-            <div class="task skills done"><span class="checkbox"></span><span class="task-title">Set up Proactive Agent (incorporated into SOUL)</span></div>
-            <div class="task skills done"><span class="checkbox"></span><span class="task-title">Set up Self-Improving Agent (incorporated into SOUL)</span></div>
-            <div class="task skills done"><span class="checkbox"></span><span class="task-title">Configure Browser Use Agent (✓ working)</span></div>
-            <div class="task skills done"><span class="checkbox"></span><span class="task-title">Configure Agent Browser (✓ working)</span></div>
-            <div class="task skills done"><span class="checkbox"></span><span class="task-title">Configure Messenger Agent (✓ working)</span></div>
-            
-            <div class="task category">Personality</div>
-            <div class="task personality done"><span class="checkbox"></span><span class="task-title">Craft personality text for soul files</span></div>
+            <div class="task category">Projects</div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">1.</span> AI Agent Agency</span><div class="project-subtitle">Name: _____</div></div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">2.</span> Surf House Baja Template</span><div class="project-subtitle">Name: _____</div></div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">3.</span> Business Acquisition</span><div class="project-subtitle">Name: _____</div></div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">4.</span> Faceless Instagram</span><div class="project-subtitle">Name: _____</div></div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">5.</span> Business Research Funnel</span><div class="project-subtitle">Name: _____</div></div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">6.</span> Divorce Digital Product</span><div class="project-subtitle">Name: _____</div></div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">7.</span> Upwork Freelance</span><div class="project-subtitle">Name: _____</div></div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">8.</span> Clawbot Setup Service</span><div class="project-subtitle">Name: _____</div></div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">9.</span> SAS Booking Services</span><div class="project-subtitle">Name: _____</div></div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">10.</span> Lead Gen Service</span><div class="project-subtitle">Name: _____</div></div>
+            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">11.</span> AI Business Finder</span><div class="project-subtitle">Name: _____</div></div>
             
             <div class="task category">Job Applications</div>
-            <div class="task jobs"><span class="checkbox"></span><span class="task-title">1. Growth Lead @ Forager.ai (LA)</span></div>
-            <div class="task jobs"><span class="checkbox"></span><span class="task-title">2. Senior Amazon Brand Manager @ GNO Partners</span></div>
-            <div class="task jobs"><span class="checkbox"></span><span class="task-title">3. Growth Marketing Manager @ Relay Commerce</span></div>
-            <div class="task jobs"><span class="checkbox"></span><span class="task-title">4. Growth Marketing Director @ Wood Mackenzie</span></div>
-            <div class="task jobs"><span class="checkbox"></span><span class="task-title">5. Marketing Strategy Advisor @ NewtonX</span></div>
-            <div class="task jobs"><span class="checkbox"></span><span class="task-title">6. Paid Ads Strategist @ Tier3 Media</span></div>
-            <div class="task jobs"><span class="checkbox"></span><span class="task-title">7. Head of Marketing @ Tandm Systems</span></div>
-            <div class="task jobs"><span class="checkbox"></span><span class="task-title">8. Growth Marketing Associate @ Blank Canvas</span></div>
-            <div class="task jobs"><span class="checkbox"></span><span class="task-title">9. VP Field Marketing @ AutoStore</span></div>
-            <div class="task jobs"><span class="checkbox"></span><span class="task-title">10. Content Marketer @ Animalz</span></div>
+            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">1. Growth Lead @ Forager.ai (LA)</span></div>
+            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">2. Senior Amazon Brand Manager @ GNO Partners</span></div>
+            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">3. Growth Marketing Manager @ Relay Commerce</span></div>
+            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">4. Growth Marketing Director @ Wood Mackenzie</span></div>
+            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">5. Marketing Strategy Advisor @ NewtonX</span></div>
+            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">6. Paid Ads Strategist @ Tier3 Media</span></div>
+            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">7. Head of Marketing @ Tandm Systems</span></div>
+            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">8. Growth Marketing Associate @ Blank Canvas</span></div>
+            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">9. VP Field Marketing @ AutoStore</span></div>
+            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">10. Content Marketer @ Animalz</span></div>
         </div>
         
         <div class="column inprogress">
@@ -184,24 +209,80 @@
         <div class="column done">
             <h2>✅ Done</h2>
             
-            <div class="task memory done"><span class="checkbox"></span><span class="task-title">Memory directory exists</span></div>
-            <div class="task memory done"><span class="checkbox"></span><span class="task-title">Workspace memory folder created</span></div>
-            <div class="task memory done"><span class="checkbox"></span><span class="task-title">Memory maintenance added to heartbeat</span></div>
-            <div class="task done"><span class="checkbox"></span><span class="task-title">Created TASKBOARD.md</span></div>
-            <div class="task done"><span class="checkbox"></span><span class="task-title">Kanban board built</span></div>
-            <div class="task done"><span class="checkbox"></span><span class="task-title">Updated resume with AI skills</span></div>
-            <div class="task done"><span class="checkbox"></span><span class="task-title">Found 10 jobs to apply for</span></div>
-            <div class="task done"><span class="checkbox"></span><span class="task-title">Port 18789 → 19891 (permanent)</span></div>
-            <div class="task done"><span class="checkbox"></span><span class="task-title">Gateway installed as LaunchAgent</span></div>
-            <div class="task done"><span class="checkbox"></span><span class="task-title">Config file secured (chmod 600)</span></div>
+            <div class="task memory done" draggable="true"><span class="checkbox"></span><span class="task-title">Memory directory exists</span></div>
+            <div class="task memory done" draggable="true"><span class="checkbox"></span><span class="task-title">Workspace memory folder created</span></div>
+            <div class="task memory done" draggable="true"><span class="checkbox"></span><span class="task-title">Memory maintenance added to heartbeat</span></div>
+            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Created TASKBOARD.md</span></div>
+            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Updated resume with AI skills</span></div>
+            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Found 10 jobs to apply for</span></div>
+            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Port 18789 → 19891 (permanent)</span></div>
+            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Gateway installed as LaunchAgent</span></div>
+            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Config file secured (chmod 600)</span></div>
+            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">API limits (handled by provider)</span></div>
+            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Prompt injection protection</span></div>
+            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Device paired: Computer</span></div>
+            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Passwords: Use env vars</span></div>
+            <div class="task prompt done" draggable="true"><span class="checkbox"></span><span class="task-title">Prompt caching: Behavioral</span></div>
+            <div class="task skills done" draggable="true"><span class="checkbox"></span><span class="task-title">Proactive Agent configured</span></div>
+            <div class="task skills done" draggable="true"><span class="checkbox"></span><span class="task-title">Self-Improving Agent configured</span></div>
+            <div class="task skills done" draggable="true"><span class="checkbox"></span><span class="task-title">Browser Use Agent working</span></div>
+            <div class="task skills done" draggable="true"><span class="checkbox"></span><span class="task-title">Agent Browser configured</span></div>
+            <div class="task skills done" draggable="true"><span class="checkbox"></span><span class="task-title">Messenger Agent working</span></div>
+            <div class="task personality done" draggable="true"><span class="checkbox"></span><span class="task-title">Personality text for soul files</span></div>
+            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">GitHub account created</span></div>
+            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Netlify account set up</span></div>
+            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Hostinger API connected</span></div>
+            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Kanban board built & deployed</span></div>
+        </div>
+        
+        <div class="column archived">
+            <h2>📦 Archived</h2>
+            <div class="add-task">+ Click to add archived task</div>
         </div>
     </div>
     
     <script>
-        // Simple toggle functionality
+        // Drag and drop functionality
+        let draggedItem = null;
+        
         document.querySelectorAll('.task').forEach(task => {
-            task.addEventListener('click', () => {
-                task.classList.toggle('done');
+            task.addEventListener('dragstart', function(e) {
+                draggedItem = this;
+                this.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            });
+            
+            task.addEventListener('dragend', function() {
+                this.classList.remove('dragging');
+                draggedItem = null;
+            });
+        });
+        
+        document.querySelectorAll('.column').forEach(column => {
+            column.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            });
+            
+            column.addEventListener('drop', function(e) {
+                e.preventDefault();
+                if (draggedItem) {
+                    const addTask = this.querySelector('.add-task');
+                    if (addTask) {
+                        this.insertBefore(draggedItem, addTask);
+                    } else {
+                        this.appendChild(draggedItem);
+                    }
+                }
+            });
+        });
+        
+        // Click to toggle done
+        document.querySelectorAll('.task:not(.category):not(.project)').forEach(task => {
+            task.addEventListener('click', function() {
+                if (!this.classList.contains('category') && !this.classList.contains('project')) {
+                    this.classList.toggle('done');
+                }
             });
         });
     </script>
