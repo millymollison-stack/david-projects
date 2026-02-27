@@ -12,21 +12,21 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #1a1a2e;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
+            color: #fff;
             padding: 20px;
         }
         
         h1 {
-            color: #fff;
             text-align: center;
-            margin-bottom: 30px;
             font-size: 2rem;
-        }
-        
-        h1 span {
-            color: #e94560;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #00d9ff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .board {
@@ -34,257 +34,330 @@
             gap: 20px;
             overflow-x: auto;
             padding-bottom: 20px;
-            min-height: 500px;
+            min-height: 70vh;
         }
         
         .column {
-            background: #16213e;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             min-width: 300px;
             max-width: 300px;
-            padding: 20px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .column h2 {
-            color: #fff;
             font-size: 1.1rem;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: #00d9ff;
         }
         
-        .column.todo h2 { border-color: #e94560; }
-        .column.inprogress h2 { border-color: #f39c12; }
-        .column.done h2 { border-color: #27ae60; }
-        .column.archived h2 { border-color: #7f8c8d; }
+        .task-count {
+            background: rgba(0, 217, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00d9ff;
+        }
+        
+        .tasks {
+            min-height: 200px;
+        }
         
         .task {
-            background: #0f3460;
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 8px;
             padding: 12px;
             margin-bottom: 10px;
-            color: #fff;
-            font-size: 0.9rem;
             cursor: grab;
-            transition: transform 0.2s, box-shadow 0.2s;
-            user-select: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
         }
         
-        .task:active {
-            cursor: grabbing;
+        .task:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(0, 217, 255, 0.3);
         }
         
         .task.dragging {
             opacity: 0.5;
-            transform: rotate(3deg);
+            cursor: grabbing;
         }
         
-        .task:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        
-        .task.category {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.7;
-            margin-bottom: 5px;
-            cursor: default;
-        }
-        
-        .task.category:hover {
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .task.security { border-left: 3px solid #e94560; }
-        .task.memory { border-left: 3px solid #3498db; }
-        .task.prompt { border-left: 3px solid #9b59b6; }
-        .task.skills { border-left: 3px solid #f39c12; }
-        .task.personality { border-left: 3px solid #1abc9c; }
-        .task.jobs { border-left: 3px solid #e74c3c; }
-        .task.project { border-left: 3px solid #00cec9; }
-        
-        .checkbox {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #fff;
-            border-radius: 3px;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-        
-        .task.done .checkbox {
-            background: #27ae60;
-            border-color: #27ae60;
-        }
-        
-        .task.done .task-title {
-            text-decoration: line-through;
-            opacity: 0.6;
-        }
-        
-        .add-task {
-            background: #0f3460;
-            border: 2px dashed #444;
-            border-radius: 8px;
-            padding: 12px;
-            color: #888;
-            text-align: center;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        
-        .add-task:hover {
-            border-color: #666;
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 8px;
             color: #fff;
         }
         
-        .project-number {
-            font-weight: bold;
-            color: #00cec9;
-            margin-right: 5px;
-        }
-        
-        .project-subtitle {
-            font-size: 0.75rem;
-            color: #aaa;
-            margin-top: 5px;
+        .task-subtitle {
+            font-size: 0.85rem;
+            color: #8892b0;
             font-style: italic;
         }
         
-        @media (max-width: 768px) {
-            .board {
-                flex-direction: column;
-            }
-            .column {
-                max-width: 100%;
-            }
+        .task-subtitle[contenteditable]:focus {
+            outline: none;
+            border-bottom: 1px solid #00d9ff;
+        }
+        
+        .column.done .task-title {
+            text-decoration: line-through;
+            color: #8892b0;
+        }
+        
+        .column.archived .task {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .add-task-btn {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #8892b0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        
+        .add-task-btn:hover {
+            border-color: #00d9ff;
+            color: #00d9ff;
         }
     </style>
 </head>
 <body>
-    <h1>David & <span>Milly</span> Task Board</h1>
+    <h1>📋 David & Milly - Task Board</h1>
     
-    <div class="board">
-        <div class="column todo">
-            <h2>📋 To Do</h2>
-            
-            <div class="task category">Projects</div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">1.</span> AI Agent Agency</span><div class="project-subtitle">Name: _____</div></div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">2.</span> Surf House Baja Template</span><div class="project-subtitle">Name: _____</div></div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">3.</span> Business Acquisition</span><div class="project-subtitle">Name: _____</div></div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">4.</span> Faceless Instagram</span><div class="project-subtitle">Name: _____</div></div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">5.</span> Business Research Funnel</span><div class="project-subtitle">Name: _____</div></div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">6.</span> Divorce Digital Product</span><div class="project-subtitle">Name: _____</div></div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">7.</span> Upwork Freelance</span><div class="project-subtitle">Name: _____</div></div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">8.</span> Clawbot Setup Service</span><div class="project-subtitle">Name: _____</div></div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">9.</span> SAS Booking Services</span><div class="project-subtitle">Name: _____</div></div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">10.</span> Lead Gen Service</span><div class="project-subtitle">Name: _____</div></div>
-            <div class="task project" draggable="true"><span class="task-title"><span class="project-number">11.</span> AI Business Finder</span><div class="project-subtitle">Name: _____</div></div>
-            
-            <div class="task category">Job Applications</div>
-            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">1. Growth Lead @ Forager.ai (LA)</span></div>
-            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">2. Senior Amazon Brand Manager @ GNO Partners</span></div>
-            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">3. Growth Marketing Manager @ Relay Commerce</span></div>
-            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">4. Growth Marketing Director @ Wood Mackenzie</span></div>
-            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">5. Marketing Strategy Advisor @ NewtonX</span></div>
-            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">6. Paid Ads Strategist @ Tier3 Media</span></div>
-            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">7. Head of Marketing @ Tandm Systems</span></div>
-            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">8. Growth Marketing Associate @ Blank Canvas</span></div>
-            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">9. VP Field Marketing @ AutoStore</span></div>
-            <div class="task jobs" draggable="true"><span class="checkbox"></span><span class="task-title">10. Content Marketer @ Animalz</span></div>
+    <div class="board" id="board">
+        <!-- To Do Column -->
+        <div class="column" data-column="todo">
+            <div class="column-header">
+                <h2>📋 To Do</h2>
+                <span class="task-count" id="todo-count">0</span>
+            </div>
+            <div class="tasks" id="todo-tasks">
+                <div class="task" draggable="true">
+                    <div class="task-title">1. AI Agent Agency</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">2. Surf House Baja Template</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">3. Business Acquisition</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">4. Faceless Instagram</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">5. Business Research Funnel</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">6. Divorce Digital Product</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">7. Upwork Freelance</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">8. Clawbot Setup Service</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">9. SAS Booking Services</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">10. Lead Gen Service</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">11. AI Business Finder</div>
+                    <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+                </div>
+            </div>
+            <button class="add-task-btn" onclick="addTask('todo-tasks')">+ Add Task</button>
         </div>
         
-        <div class="column inprogress">
-            <h2>🔄 In Progress</h2>
-            <div class="add-task">+ Click to add task</div>
+        <!-- In Progress Column -->
+        <div class="column" data-column="progress">
+            <div class="column-header">
+                <h2>🚀 In Progress</h2>
+                <span class="task-count" id="progress-count">0</span>
+            </div>
+            <div class="tasks" id="progress-tasks">
+            </div>
+            <button class="add-task-btn" onclick="addTask('progress-tasks')">+ Add Task</button>
         </div>
         
-        <div class="column done">
-            <h2>✅ Done</h2>
-            
-            <div class="task memory done" draggable="true"><span class="checkbox"></span><span class="task-title">Memory directory exists</span></div>
-            <div class="task memory done" draggable="true"><span class="checkbox"></span><span class="task-title">Workspace memory folder created</span></div>
-            <div class="task memory done" draggable="true"><span class="checkbox"></span><span class="task-title">Memory maintenance added to heartbeat</span></div>
-            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Created TASKBOARD.md</span></div>
-            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Updated resume with AI skills</span></div>
-            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Found 10 jobs to apply for</span></div>
-            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Port 18789 → 19891 (permanent)</span></div>
-            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Gateway installed as LaunchAgent</span></div>
-            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Config file secured (chmod 600)</span></div>
-            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">API limits (handled by provider)</span></div>
-            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Prompt injection protection</span></div>
-            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Device paired: Computer</span></div>
-            <div class="task security done" draggable="true"><span class="checkbox"></span><span class="task-title">Passwords: Use env vars</span></div>
-            <div class="task prompt done" draggable="true"><span class="checkbox"></span><span class="task-title">Prompt caching: Behavioral</span></div>
-            <div class="task skills done" draggable="true"><span class="checkbox"></span><span class="task-title">Proactive Agent configured</span></div>
-            <div class="task skills done" draggable="true"><span class="checkbox"></span><span class="task-title">Self-Improving Agent configured</span></div>
-            <div class="task skills done" draggable="true"><span class="checkbox"></span><span class="task-title">Browser Use Agent working</span></div>
-            <div class="task skills done" draggable="true"><span class="checkbox"></span><span class="task-title">Agent Browser configured</span></div>
-            <div class="task skills done" draggable="true"><span class="checkbox"></span><span class="task-title">Messenger Agent working</span></div>
-            <div class="task personality done" draggable="true"><span class="checkbox"></span><span class="task-title">Personality text for soul files</span></div>
-            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">GitHub account created</span></div>
-            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Netlify account set up</span></div>
-            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Hostinger API connected</span></div>
-            <div class="task done" draggable="true"><span class="checkbox"></span><span class="task-title">Kanban board built & deployed</span></div>
+        <!-- Done Column -->
+        <div class="column done" data-column="done">
+            <div class="column-header">
+                <h2>✅ Done</h2>
+                <span class="task-count" id="done-count">0</span>
+            </div>
+            <div class="tasks" id="done-tasks">
+                <div class="task" draggable="true">
+                    <div class="task-title">Memory directory exists</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">Workspace memory folder created</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">Memory maintenance added to heartbeat</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">Created TASKBOARD.md</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">Kanban board built</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">Updated resume with AI skills</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">Found 10 jobs to apply for</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">Port 18789 → 19891 (permanent)</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">Gateway installed as LaunchAgent</div>
+                </div>
+                <div class="task" draggable="true">
+                    <div class="task-title">Config file secured (chmod 600)</div>
+                </div>
+            </div>
+            <button class="add-task-btn" onclick="addTask('done-tasks')">+ Add Task</button>
         </div>
         
-        <div class="column archived">
-            <h2>📦 Archived</h2>
-            <div class="add-task">+ Click to add archived task</div>
+        <!-- Archived Column -->
+        <div class="column archived" data-column="archived">
+            <div class="column-header">
+                <h2>📦 Archived</h2>
+                <span class="task-count" id="archived-count">0</span>
+            </div>
+            <div class="tasks" id="archived-tasks">
+            </div>
+            <button class="add-task-btn" onclick="addTask('archived-tasks')">+ Add Task</button>
         </div>
     </div>
-    
+
     <script>
-        // Drag and drop functionality
-        let draggedItem = null;
+        // Drag and Drop functionality
+        let draggedTask = null;
         
         document.querySelectorAll('.task').forEach(task => {
-            task.addEventListener('dragstart', function(e) {
-                draggedItem = this;
-                this.classList.add('dragging');
-                e.dataTransfer.effectAllowed = 'move';
-            });
-            
-            task.addEventListener('dragend', function() {
-                this.classList.remove('dragging');
-                draggedItem = null;
-            });
+            task.addEventListener('dragstart', dragStart);
+            task.addEventListener('dragend', dragEnd);
         });
         
-        document.querySelectorAll('.column').forEach(column => {
-            column.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                e.dataTransfer.dropEffect = 'move';
-            });
+        document.querySelectorAll('.tasks').forEach(tasksContainer => {
+            tasksContainer.addEventListener('dragover', dragOver);
+            tasksContainer.addEventListener('drop', drop);
+        });
+        
+        function dragStart(e) {
+            draggedTask = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
+        
+        function dragEnd() {
+            this.classList.remove('dragging');
+            draggedTask = null;
+            updateCounts();
+        }
+        
+        function dragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
             
-            column.addEventListener('drop', function(e) {
-                e.preventDefault();
-                if (draggedItem) {
-                    const addTask = this.querySelector('.add-task');
-                    if (addTask) {
-                        this.insertBefore(draggedItem, addTask);
-                    } else {
-                        this.appendChild(draggedItem);
+            const tasks = this.querySelectorAll('.task');
+            
+            if (tasks.length === 0) {
+                this.appendChild(draggedTask);
+                return;
+            }
+            
+            tasks.forEach(task => {
+                const box = task.getBoundingClientRect();
+                const midY = box.top + box.height / 2;
+                
+                if (mouseY < midY) {
+                    this.insertBefore(draggedTask, task);
+                }
+            });
+        }
+        
+        function drop(e) {
+            e.preventDefault();
+            if (draggedTask) {
+                const tasks = this.querySelectorAll('.task');
+                let inserted = false;
+                
+                tasks.forEach(task => {
+                    if (!inserted) {
+                        const box = task.getBoundingClientRect();
+                        const midY = box.top + box.height / 2;
+                        if (e.clientY < midY) {
+                            this.insertBefore(draggedTask, task);
+                            inserted = true;
+                        }
                     }
+                });
+                
+                if (!inserted) {
+                    this.appendChild(draggedTask);
                 }
-            });
-        });
+            }
+            updateCounts();
+        }
         
-        // Click to toggle done
-        document.querySelectorAll('.task:not(.category):not(.project)').forEach(task => {
-            task.addEventListener('click', function() {
-                if (!this.classList.contains('category') && !this.classList.contains('project')) {
-                    this.classList.toggle('done');
+        function updateCounts() {
+            document.querySelectorAll('.column').forEach(col => {
+                const count = col.querySelectorAll('.task').length;
+                const countEl = col.querySelector('.task-count');
+                if (countEl) {
+                    countEl.textContent = count;
                 }
             });
-        });
+        }
+        
+        function addTask(containerId) {
+            const container = document.getElementById(containerId);
+            const task = document.createElement('div');
+            task.className = 'task';
+            task.draggable = true;
+            task.innerHTML = `
+                <div class="task-title" contenteditable="true">New Task</div>
+                <div class="task-subtitle" contenteditable="true" placeholder="Click to add subtitle...">[subtitle here]</div>
+            `;
+            task.addEventListener('dragstart', dragStart);
+            task.addEventListener('dragend', dragEnd);
+            container.appendChild(task);
+            updateCounts();
+        }
+        
+        // Initial count update
+        updateCounts();
     </script>
 </body>
 </html>
