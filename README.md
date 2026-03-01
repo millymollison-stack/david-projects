@@ -1,1 +1,1 @@
-# Vacation Rental Template Landing Page
+# Vacation Rental Template
