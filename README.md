@@ -1,2 +1,1 @@
-# david-projects
-David's projects and portfolio hosting
+# Vacation Rental Template Landing Page

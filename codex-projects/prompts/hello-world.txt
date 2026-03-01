@@ -1,0 +1,6 @@
+Create a simple hello world Python script that:
+1. Prints "Hello from Codex!"
+2. Adds a simple function that takes a name and returns a greeting
+3. Includes proper docstrings
+
+Save this to a file called hello.py in the current directory.

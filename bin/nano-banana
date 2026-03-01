@@ -1,0 +1,21 @@
+#!/bin/bash
+# Wrapper for nano-banana-pro that opens generated images in Chrome
+
+API_KEY="${GEMINI_API_KEY:-$(cat ~/.openclaw/openclaw.json | python3 -c "import json,sys; print(json.load(sys.stdin).get('skills',{}).get('entries',{}).get('nano-banana-pro',{}).get('apiKey',''))")}"
+
+SCRIPT_DIR="/opt/homebrew/lib/node_modules/openclaw/skills/nano-banana-pro/scripts"
+
+# Run the generation
+cd /tmp
+GEMINI_API_KEY="$API_KEY" uv run "$SCRIPT_DIR/generate_image.py" "$@"
+
+# Find the generated image
+for arg in "$@"; do
+  if [[ "$arg" == --filename* ]]; then
+    FILENAME="${arg#*=}"
+    if [[ -f "/tmp/$FILENAME" ]]; then
+      open -a "Google Chrome" "file:///tmp/$FILENAME"
+      echo "Opened /tmp/$FILENAME in Chrome"
+    fi
+  fi
+done
