@@ -679,6 +679,20 @@
         .form-submit:hover { background: var(--primary-dark); }
 
         /* ===================== MOBILE ===================== */
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .section-header h2 { font-size: 1.25rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .hero-content { padding: 0 16px; }
+            .hero-content h1 { font-size: 1.8rem; }
+            .hero-tagline { font-size: 1rem; }
+            .nav-brand { font-size: 1rem; }
+            .feature-card { padding: 20px; }
+            .footer-content { flex-direction: column; gap: 20px; }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+        }
+
         @media (max-width: 540px) {
             .hero { padding: 50px 18px; }
             .hero h1 { font-size: 1.4rem; }
